@@ -3,7 +3,6 @@ from aiogram import Router, F
 from aiogram.filters import Text, StateFilter
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message
-from transmission_rpc import Torrent
 
 from services.logs import logging
 from services.process_folder import get_name
@@ -26,8 +25,9 @@ async def process_move_file(message: Message, state: FSMContext):
 async def process_take_id_torrent(message: Message, state: FSMContext):
     torrent = try_get_torrent(int(message.text))
     if torrent:
-        await state.update_data(torrent=torrent)
-
+        await state.update_data(torrent_id=torrent.id,
+                                torrent_name=torrent.name,
+                                torrent_folder=torrent.download_dir)
         await message.answer(text=lexicon['select_folder'],
                              reply_markup=get_reply_keyboard(names=[lexicon['films'],
                                                                     lexicon['serials'],
@@ -42,10 +42,11 @@ async def process_take_id_torrent(message: Message, state: FSMContext):
 async def process_move_select_folder(message: Message, state: FSMContext):
     await state.update_data(folder=get_name(message.text))
     temp_dict: dict[str: Any] = await state.get_data()
-    torrent: Torrent = temp_dict['torrent']
+    torrent_name: str = temp_dict['torrent_name']
+    torrent_current_folder: str = temp_dict['torrent_folder']
 
-    if torrent.download_dir[-1] != get_name(message.text):
-        await message.answer(text=lexicon['torrent_move_accept'].format(name=torrent.name, dir=message.text),
+    if torrent_current_folder[-1] != get_name(message.text):
+        await message.answer(text=lexicon['torrent_move_accept'].format(name=torrent_name, dir=message.text),
                              reply_markup=get_reply_keyboard(names=[lexicon['yes'],
                                                                     lexicon['no'],
                                                                     lexicon['main_menu']]))
@@ -61,13 +62,14 @@ async def wrong_id_input(message: Message):
 
 async def process_final_move_torrent(message: Message, state: FSMContext):
     temp_dict: dict[str: Any] = await state.get_data()
-    torrent = temp_dict['torrent']
+    torrent_id: int = int(temp_dict['torrent_id'])
+    torrent_name: str = temp_dict['torrent_name']
     path = temp_dict['folder']
-    move_torrent(torrent, path)
-    logging(f'File "{torrent.name}" moved to folder {config.transmission.download_folder}{path} '
+    move_torrent(torrent_id, path)
+    logging(f'File "{torrent_name}" moved to folder {config.transmission.download_folder}{path} '
             f'by {message.from_user.username}')
     await state.clear()
-    await message.answer(text=lexicon['torrent_file_moved'].format(name=torrent.name),
+    await message.answer(text=lexicon['torrent_file_moved'].format(name=torrent_name),
                          reply_markup=get_reply_keyboard(names=[lexicon['main_menu']]))
 
 
