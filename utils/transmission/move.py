@@ -1,4 +1,3 @@
-from transmission_rpc import Torrent
 
 from utils.transmission import client
 from config_data import config

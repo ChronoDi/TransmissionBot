@@ -24,7 +24,8 @@ async def process_take_id_torrent(message: Message, state: FSMContext):
     torrent = try_get_torrent(int(message.text))
 
     if torrent:
-        await state.update_data(torrent=torrent)
+        await state.update_data(torrent_id=torrent.id,
+                                torrent_name=torrent.name)
         await message.answer(text=lexicon['torrent_delete_accept'].format(name=torrent.name),
                              reply_markup=get_reply_keyboard(names=[lexicon['yes'],
                                                                     lexicon['no'],
@@ -41,11 +42,12 @@ async def wrong_id_input(message: Message):
 
 async def process_final_delete_torrent(message: Message, state: FSMContext):
     temp_dict: dict[str: Any] = await state.get_data()
-    torrent = temp_dict['torrent']
-    delete_torrent(torrent)
-    logging(f'File "{torrent.name}" delete by {message.from_user.username}')
+    torrent_id: int = temp_dict['torrent_id']
+    torrent_name: str = temp_dict['torrent_name']
+    delete_torrent(torrent_id)
+    logging(f'File "{torrent_name}" delete by {message.from_user.username}')
     await state.clear()
-    await message.answer(text=lexicon['torrent_file_removed'].format(name=torrent.name),
+    await message.answer(text=lexicon['torrent_file_removed'].format(name=torrent_name),
                          reply_markup=get_reply_keyboard(names=[lexicon['main_menu']]))
 
 
