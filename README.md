@@ -144,9 +144,9 @@ After=network.target
 ```
 [Service]
 Type=simple
-User=chrono
+User=<ваше имя пользователя>
 WorkingDirectory=/home/<ваше имя пользователя>/TransmissionBot
-ExecStart=/home/<ваше имя пользователя>/TransmissionBot/venv/bin/python3 /home/<ваше имя пользователя>/TransmissionBot/app.py
+ExecStart=/home/<ваше имя пользователя>/TransmissionBot/venv/bin/python3.10 /home/<ваше имя пользователя>/TransmissionBot/app.py
 Restart=always
 ```
 ```
@@ -160,7 +160,12 @@ sudo systemctl enable TransmissionBot.service
 sudo systemctl start TransmissionBot.service
 ```
 
-4. если нужно остановить скрипт
+4. Если нужно остановить скрипт:
 ```bash
 sudo systemctl stop TransmissionBot.service
+```
+
+5. Посмотреть статус сервиса бота:
+```bash
+sudo systemctl status TransmissionBot.service
 ```
