@@ -6,16 +6,16 @@ v.2
 Для установки бота необходим **python3** не ниже версии **3.10**, все остальные зависимости есть в файле **requirements.txt**. А так же нужен сам Transsmision с установленным модулем Transmission-web, скачать его можно на
 [официальном сайте](https://transmissionbt.com/).
 
-Бот может принимать файлы типа .torrent и magnet-ссылки от пользователя и ставить файлы на закачку, сортируя перед этим их по нужным папкам.
+Бот может принимать файлы типа **.torrent** и **magnet-ссылки** от пользователя и ставить файлы на закачку, сортируя перед этим их по нужным папкам.
 Так же есть возможность просмотра списка торрентов, перенос торрентов между папками и их удаление.
 
-Порядок установки бота на Linux-сервер, на примере Ubuntu-сервера:
+Порядок установки бота на **Linux-сервер**, на примере **Ubuntu-сервера**:
 
 1. Проверьте версию python3, которая установлена на сервере (она должна быть не ниже 3.10):
 ```bash
 python3 -V
 ```
-2. Установите Git и проверьте его установку.
+2. Установите Git и проверьте его установку (этот и следующий шаг можно пропустить, если вы хотите использовать **wget** и **curl**).
 ```bash
 sudo apt install git
 git --version
@@ -61,7 +61,7 @@ TRANSMISSION_USER_NAME=
 TRANSMISSION_PASSWORD=
 #Папка указаная в настройках Transmission
 DOWNLOAD_FOLDER=/download/
-#Название папок, которые будут использоваться для вортировки скаченных файлов.
+#Название папок, которые будут использоваться для cортировки скаченных файлов.
 FILM_FOLDER=F
 SERIAL_FOLDER=S
 ANOTHER_FOLDER=A
@@ -135,21 +135,19 @@ sudo nano TransmissionBot.service
 ```
 
 2. Запишите в него следующее:
-```
+```textmate
 [Unit]
 Description=TransmissionBot
 After=syslog.target
 After=network.target
-```
-```
+
 [Service]
 Type=simple
 User=<ваше имя пользователя>
 WorkingDirectory=/home/<ваше имя пользователя>/TransmissionBot
 ExecStart=/home/<ваше имя пользователя>/TransmissionBot/venv/bin/python3.10 /home/<ваше имя пользователя>/TransmissionBot/app.py
 Restart=always
-```
-```
+
 [Install]
 WantedBy=multi-user.target
 ```
