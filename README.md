@@ -29,7 +29,7 @@ cd TransmissionBot/
 4. Все настройки для бота должны храниться в файле .env, пример его заполнения есть в файле .env.dict. Создайте файл .env и откройте его с помощью редактора:
 ```bash
 cp .env.dict .env
-nano .env
+vi .env
 ```
 Файл .env состоит из:
 ```bash
@@ -131,8 +131,8 @@ yarl               1.9.2
 1. Перейдите в папку /etc/systemd/system/ и создайте там файл TransmissionBot.service
 ```bash
 cd /etc/systemd/system/
-sudo nano TransmissionBot.service
-```
+sudo vi TransmissionBot.service
+````
 
 2. Запишите в него следующее:
 ```textmate

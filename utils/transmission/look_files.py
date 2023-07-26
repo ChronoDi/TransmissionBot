@@ -12,7 +12,7 @@ def get_torrents_list() -> str:
     for torrent in torrents:
         result += lexicon['torrent_view'].format(id=torrent.id,
                                                  name=torrent.name,
-                                                 available=torrent.available,
+                                                 available=torrent.percent_complete,
                                                  dir=torrent.download_dir)
 
     return result
