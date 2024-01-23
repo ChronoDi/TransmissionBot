@@ -29,8 +29,10 @@ class Dict(TypedDict):
     torrent_cancel_delete: str
     torrent_move_accept: str
     torrent_here: str
+    torrent_list: str
     torrent_file_moved: str
     torrent_cancel_move: str
     admin_echo: str
     yes: str
     no: str
+

@@ -27,6 +27,7 @@ ru = Dict(
     torrent_not_found='Торрент не найден, попробуйте другой номер.',
     torrent_wrong_input='Неверный ввод. Попробуйте снова.',
     torrent_delete_accept='Вы точно хотите удалить торрент: "{name}"',
+    torrent_list='Список торрентов:',
     torrent_file_removed='Файл "{name}" удален.',
     torrent_cancel_delete='Удаление отменено.',
     torrent_move_accept='Вы точно хотите переместить торрент: "{name}" в папку "{dir}"',
