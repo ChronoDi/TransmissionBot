@@ -22,6 +22,7 @@ class Dict(TypedDict):
     incorrect_file: str
     torrent_view: str
     torrent_id: str
+    torrents_id_to_remove: str
     torrent_not_found: str
     torrent_wrong_input: str
     torrent_delete_accept: str

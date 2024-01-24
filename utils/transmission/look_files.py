@@ -26,11 +26,30 @@ def show_result(torrents: list[Torrent]) -> str:
     return result
 
 
-def try_get_torrent(value: int) -> Torrent | None:
+def get_torrents(ids: list[int]) -> list[Torrent]:
+    return client.get_torrents(ids)
+
+
+def get_torrents_id_list(user_input: str) -> list[int]:
+    str_torrents_list: list[str] = user_input.split(',')
+    torrents_list: list[int] = []
+
+    for value in str_torrents_list:
+        try:
+            temp = int(value)
+            if try_get_torrent(temp):
+                torrents_list.append(temp)
+        except ValueError:
+            continue
+
+    return torrents_list
+
+
+def try_get_torrent(value: int) -> bool:
     torrents = client.get_torrents()
 
     for torrent in torrents:
         if torrent.id == value:
-            return torrent
+            return True
 
-    return
+    return False

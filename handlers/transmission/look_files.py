@@ -47,6 +47,7 @@ def process_all_handlers() -> None:
                                        StateFilter(FSMTransmission.menu))
     look_files_router.callback_query.register(process_paginator_torrents,
                                               or_f(F.data == 'previous', F.data == 'next'),
-                                              StateFilter(FSMTransmission.look_files))
+                                              or_f(StateFilter(FSMTransmission.look_files),
+                                                   StateFilter(FSMTransmission.delete_select_file)))
     look_files_router.message.register(wrong_id_input,
                                        StateFilter(FSMTransmission.menu))
