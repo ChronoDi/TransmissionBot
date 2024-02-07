@@ -2,8 +2,7 @@ import asyncio
 import logging
 
 from aiogram import Bot, Dispatcher
-
-from services.storage import init_storage
+from aiogram.fsm.storage.memory import MemoryStorage
 
 from config_data import config
 from handlers import admin, invalid_user, commands, transmission
@@ -24,7 +23,7 @@ async def main() -> None:
                                                    '[%(asctime)s] - %(name)s - %(message)s')
     logger.info('Start bot')
     bot: Bot = Bot(config.tg_bot.token, parse_mode='HTML')
-    storage = init_storage(config.redis.is_need, config.redis.host)
+    storage = MemoryStorage()
     dp: Dispatcher = Dispatcher(storage=storage)
 
     include_all_routers(dp)
