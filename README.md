@@ -1,5 +1,5 @@
 # **TransmissionBot**
-v.2
+v.2.1
 
 #### Телеграмм бот созданный на основе библиотек aiogram (версии 3.0.7b) и transmission-rpc, для управления торрент-качалкой Transmission.
 
@@ -38,16 +38,6 @@ vi .env
 BOT_TOKEN=423423423:dsajdhasjdkhasjkdhasd
 #Список пользователей, которые будут иметь доступ к боту. Узнать свой id можно у https://t.me/getmyid_bot
 ADMINS=5432543,445323432,31231312
-```
-```bash
-#Redis
-#Параметр указывает, нужно ли использовать в качестве хранилища состояния бота Redis,
-#необходимо это для того, чтобы бот запоминал место, на котором остановил диалог с вами,
-#даже если сервер отключится.
-#Принимает параметры True(использовать Redis), False(Не использовать)
-USE_REDIS=False
-#Адрес сервера, где установлен Redis
-REDIS_HOST=localhost
 ```
 ```bash
 #transmission
@@ -166,4 +156,13 @@ sudo systemctl stop TransmissionBot.service
 5. Посмотреть статус сервиса бота:
 ```bash
 sudo systemctl status TransmissionBot.service
+```
+
+_______________________________________
+
+## Альтернативная установка через docker
+1. Заполняем .env файл как в пункте 4.
+2. Запустить Makefile
+```bash
+make
 ```

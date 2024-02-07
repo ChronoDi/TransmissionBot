@@ -9,12 +9,6 @@ class TgBot:
 
 
 @dataclass
-class Redis:
-    is_need: bool
-    host: str
-
-
-@dataclass
 class Transmission:
     ip: str
     port: int
@@ -29,7 +23,6 @@ class Transmission:
 @dataclass
 class Config:
     tg_bot: TgBot
-    redis: Redis
     transmission: Transmission
 
 
@@ -39,8 +32,6 @@ def load_config(path: str | None = None) -> Config:
 
     return Config(tg_bot=TgBot(token=env('BOT_TOKEN'),
                                admins=list(map(int, env.list('ADMINS')))),
-                  redis=Redis(host=env('REDIS_HOST'),
-                              is_need=env.bool('USE_REDIS')),
                   transmission=Transmission(ip=env('TRANSMISSION_IP'),
                                             port=env.int('TRANSMISSION_PORT'),
                                             user=env('TRANSMISSION_USER_NAME'),
@@ -49,4 +40,3 @@ def load_config(path: str | None = None) -> Config:
                                             serial_folder=env('SERIAL_FOLDER'),
                                             another_folder=env('ANOTHER_FOLDER'),
                                             download_folder=env('DOWNLOAD_FOLDER')))
-
