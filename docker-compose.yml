@@ -3,6 +3,7 @@ services:
   app:
     build:
       context: .
+    restart: unless-stopped
     env_file:
       - .env
     command: python app.py
