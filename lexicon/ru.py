@@ -21,7 +21,7 @@ ru = Dict(
     incorrect_file='Неверный файл, попробуйте другой.',
     torrent_view=('Торрент {id}\n'
                   'Имя: {name}\n'
-                  'Скачен на {available}%\n'
+                  'Скачан на {available}%\n'
                   'Лежит в папке {dir}\n\n'),
     torrent_id='Введите номер торрента:',
     torrents_id_to_remove='Введите номера торрентов через запятую',
